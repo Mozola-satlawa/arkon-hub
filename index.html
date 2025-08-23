@@ -1,178 +1,100 @@
+
 <!doctype html>
 <html lang="pl">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>ARKON • Hub kont</title>
-<meta name="description" content="Szybki hub do przełączania pomiędzy instancjami ARKON CRM (GitHub Pages i Netlify).">
+<title>ARKON • Hub</title>
+<meta name="description" content="Szybkie przełączanie między instancjami ARKON CRM.">
 <style>
-  :root{--bg:#0b1020;--p1:#11183a;--p2:#0f1a44;--ink:#e8edff;--muted:#aeb8da;--ok:#2fbf71;--warn:#ffb84d;--bad:#ff6b6b;--line:#243167;}
-  *{box-sizing:border-box}html,body{height:100%}body{margin:0;background:linear-gradient(180deg,#091026,#0d1436 60%,#091026);color:var(--ink);font:15px/1.5 system-ui,Segoe UI,Roboto,Arial}
-  .wrap{max-width:1100px;margin:0 auto;padding:16px}
-  h1{margin:0 0 6px}
-  .muted{color:var(--muted);font-size:13px}
-  .grid{display:grid;gap:12px}
-  @media(min-width:900px){.cols-2{grid-template-columns:1fr 1fr}}
-  .card{background:linear-gradient(180deg,var(--p1),var(--p2));border:1px solid var(--line);border-radius:14px;padding:14px}
-  .tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
-  .tile{display:block;background:#111b46;border:1px solid #2b3a77;border-radius:14px;padding:14px;text-decoration:none;color:#e8edff}
-  .tile:hover{outline:2px solid #6aa0ff55;background:#142256}
-  .tile .name{font-weight:700;font-size:18px}
+  :root{--bg:#0b1020;--p1:#11183a;--p2:#0f1a44;--ink:#e8edff;--muted:#aeb8da;--ok:#2fbf71;--line:#22306a}
+  *{box-sizing:border-box} html,body{height:100%} body{margin:0;background:linear-gradient(180deg,#0a0f1e,#0c1230 55%,#0a0f1e);color:var(--ink);font:15px/1.5 system-ui,Segoe UI,Roboto,Arial}
+  .wrap{max-width:1100px;margin:0 auto;padding:20px}
+  h1{margin:0 0 6px;font-size:22px} .muted{color:var(--muted);font-size:13px}
+  .grid{display:grid;gap:14px} @media(min-width:900px){.cols-2{grid-template-columns:1fr 1fr}}
+  .tile{display:block;padding:16px;border-radius:14px;background:linear-gradient(180deg,var(--p1),var(--p2));border:1px solid var(--line);text-decoration:none;color:#e8edff;box-shadow:0 10px 30px #0005}
+  .tile:hover{outline:2px solid #5fa4ff55}
+  .tile b{display:block;font-size:18px;margin-bottom:6px}
+  .panel{background:linear-gradient(180deg,#0f1636,#0f1a42);border:1px solid var(--line);border-radius:14px;padding:14px}
+  input{width:100%;background:#0d1530;border:1px solid #28356c;border-radius:10px;padding:10px;color:#e8edff}
   .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-  input,button{font:inherit}
-  input{width:100%;background:#0d1530;border:1px solid #28356c;border-radius:10px;padding:10px;color:var(--ink)}
-  button{background:#223262;border:1px solid #3a4ca3;color:#fff;border-radius:10px;padding:9px 12px;cursor:pointer}
-  button.ok{background:#194d34;border-color:#2f9762}
-  .pill{display:inline-block;background:#0d1530;border:1px dashed #2b3a77;border-radius:999px;padding:6px 10px;color:#aeb8da;font-size:12px}
-  .small{font-size:12px;color:#aeb8da}
+  .btn{background:#233261;border:1px solid #3a4ca3;color:#fff;border-radius:10px;padding:8px 12px;cursor:pointer;text-decoration:none}
+  .pill{display:inline-block;background:#0d1530;border:1px dashed #2b3a77;border-radius:999px;padding:6px 10px;color:#aeb8da;font-size:13px}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <h1>ARKON — hub</h1>
-  <div class="muted">Kliknij kafelek, aby otworzyć wybrane konto. Działa z GitHub Pages i Netlify. Dane trzymamy lokalnie (localStorage) — bez serwera.</div>
+  <h1>ARKON — Hub</h1>
+  <div class="muted">Kliknij kafelek, aby przejść. Działa bez żadnych ustawień.</div>
 
-  <div class="card">
-    <b>Ustawienia linków</b>
-    <div class="grid cols-2" style="margin-top:8px">
-      <div>
-        <label class="small">Twój login GitHub (małymi literami)</label>
-        <div class="row">
-          <input id="ghUser" placeholder="np. mozola-satlawa">
-          <button id="btnApply" class="ok" type="button">Ustaw linki Pages</button>
-          <button id="btnRemember" type="button">Zapamiętaj</button>
-        </div>
-        <div class="small" style="margin-top:6px">Link GitHub Pages: <span class="pill">https://<b>LOGIN</b>.github.io/<b>NAZWA-REPO</b>/</span></div>
-      </div>
-      <div>
-        <label class="small">Szybkie Netlify (opcjonalnie)</label>
-        <div class="row">
-          <input id="netlifyArkon" placeholder="https://arkon-crm.netlify.app/">
-          <input id="netlifyPawel" placeholder="https://pawel.netlify.app/">
-        </div>
-        <div class="small" style="margin-top:6px">Jeśli podasz adresy Netlify, kafelki będą używać Netlify zamiast Pages.</div>
-      </div>
-    </div>
+  <!-- KAFELKI — działają bez JS -->
+  <div class="grid cols-2" style="margin-top:14px">
+    <a id="tileA" class="tile" href="https://arkon-crm.netlify.app/" target="_blank" rel="noopener">
+      <b>arkon-crm</b>
+      <span class="muted">Twoje główne konto CRM (Netlify)</span>
+      <div class="pill" style="margin-top:8px">https://arkon-crm.netlify.app/</div>
+    </a>
+    <a id="tileB" class="tile" href="https://pawel.netlify.app/" target="_blank" rel="noopener">
+      <b>pawel</b>
+      <span class="muted">Drugie konto / kopia CRM (Netlify)</span>
+      <div class="pill" style="margin-top:8px">https://pawel.netlify.app/</div>
+    </a>
   </div>
 
-  <div class="grid cols-2" style="margin-top:12px">
-    <div class="card">
-      <b>Aplikacje</b>
-      <div id="tiles" class="tiles" style="margin-top:8px">
-        <!-- wypełnia JS -->
+  <!-- KONFIG (opcjonalna). Jak chcesz używać GitHub Pages, wpisz login i kliknij. -->
+  <div class="panel" style="margin-top:16px">
+    <div class="row" style="justify-content:space-between">
+      <div>
+        <div class="muted" style="margin-bottom:6px">Użyj GitHub Pages zamiast Netlify (opcjonalnie)</div>
+        <div class="row">
+          <input id="ghUser" placeholder="Twój login GitHub (małymi literami), np. mozola-satlawa" style="min-width:340px">
+          <button id="btnApply" class="btn" type="button">Ustaw linki na GitHub Pages</button>
+          <button id="btnReset" class="btn" type="button">Przywróć Netlify</button>
+        </div>
+        <div class="muted" style="margin-top:6px">Zapisuje się w przeglądarce (localStorage). Jeśli nic nie wpiszesz — zostaje Netlify.</div>
       </div>
     </div>
-    <div class="card">
-      <b>Domyślne wpisy</b>
-      <div class="small" style="margin-top:6px">Możesz zmienić nazwy/repo i dodać własne pozycje.</div>
-      <div id="editor" class="grid" style="margin-top:8px"></div>
-      <div class="row" style="margin-top:8px">
-        <button id="btnAdd" type="button">+ Wiersz</button>
-        <button id="btnSave" class="ok" type="button">Zapisz listę</button>
-        <button id="btnClear" type="button">Wyczyść</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="card" style="margin-top:12px">
-    <b>Podpowiedzi</b>
-    <ul class="small">
-      <li>W repo docelowych (np. <code>arkon-crm</code>, <code>pawel</code>) włącz GitHub Pages: <i>Settings → Pages → Deploy from a branch → main /(root)</i>.</li>
-      <li>Jeżeli używasz Netlify – po prostu podaj adres strony w polach „Szybkie Netlify”.</li>
-      <li>Ten plik możesz nazwać <code>index.html</code> (zalecane dla Pages) lub <code>hub.html</code> (otwieraj wtedy ręcznie).</li>
-    </ul>
   </div>
 </div>
 
 <script>
-'use strict';
-const $=s=>document.querySelector(s);
-const LS_KEY = 'arkon_hub_apps_v1';
-const LS_USER= 'arkon_hub_user_v1';
-const DEF = [
-  {name:'arkon-crm', repo:'arkon-crm', subpath:'', netlify:''},
-  {name:'pawel',     repo:'pawel',     subpath:'', netlify:''},
-  {name:'kalkulator',repo:'czyste-powietrze-kalkulator', subpath:'', netlify:''},
-  {name:'dokumenty', repo:'arkon-crm', subpath:'dokumenty.html', netlify:''}
-];
-
-function loadApps(){ try{ return JSON.parse(localStorage.getItem(LS_KEY)||'[]'); }catch{ return []; } }
-function saveApps(list){ localStorage.setItem(LS_KEY, JSON.stringify(list)); }
-function loadUser(){ return localStorage.getItem(LS_USER)||''; }
-function saveUser(u){ localStorage.setItem(LS_USER,u||''); }
-
-let APPS = loadApps(); if(!APPS.length) APPS = DEF.slice();
-$('#ghUser').value = loadUser();
-
-// Prefill Netlify quick boxes if we detect previous save
-(function() {
-  const a1 = APPS.find(a=>a.name==='arkon-crm');
-  const a2 = APPS.find(a=>a.name==='pawel');
-  if(a1 && a1.netlify) $('#netlifyArkon').value = a1.netlify;
-  if(a2 && a2.netlify) $('#netlifyPawel').value = a2.netlify;
-})();
-
-function buildTiles(){
-  const box = $('#tiles'); box.innerHTML='';
-  const user = ($('#ghUser').value||'').trim().toLowerCase();
-  APPS.forEach(app=>{
-    const a = document.createElement('a');
-    a.className='tile'; a.target='_blank'; a.rel='noopener';
-    let href = '#';
-    if(app.netlify){
-      href = app.netlify.replace(/\\/$/,'/') + (app.subpath||'');
-    }else if(user && app.repo){
-      href = `https://${user}.github.io/${app.repo}/` + (app.subpath||'');
+  (function(){
+    const A = document.getElementById('tileA');
+    const B = document.getElementById('tileB');
+    const gh = document.getElementById('ghUser');
+    const LS_KEY = 'arkon_hub_mode'; // {mode:'netlify'|'gh', user:'...'}
+    const NETLIFY = { a:'https://arkon-crm.netlify.app/', b:'https://pawel.netlify.app/' };
+    function setTiles(urls){
+      A.href = urls.a; A.querySelector('.pill').textContent = urls.a;
+      B.href = urls.b; B.querySelector('.pill').textContent = urls.b;
     }
-    a.href = href;
-    a.innerHTML = `<div class="name">${escapeHtml(app.name)}</div>
-                   <div class="small" style="margin-top:6px;word-break:break-all">${escapeHtml(href)}</div>`;
-    box.appendChild(a);
-  });
-}
-function buildEditor(){
-  const ed = $('#editor'); ed.innerHTML='';
-  APPS.forEach((app,i)=>{
-    const row = document.createElement('div');
-    row.className='row';
-    row.innerHTML = \`
-      <input data-i="\${i}" data-k="name" placeholder="Nazwa" value="\${escapeHtml(app.name)}" style="min-width:120px">
-      <input data-i="\${i}" data-k="repo" placeholder="Repo (Pages)" value="\${escapeHtml(app.repo)}" style="min-width:160px">
-      <input data-i="\${i}" data-k="subpath" placeholder="Subpath (np. dokumenty.html)" value="\${escapeHtml(app.subpath||'')}">
-      <input data-i="\${i}" data-k="netlify" placeholder="Netlify URL (opcjonalnie)" value="\${escapeHtml(app.netlify||'')}">
-      <button class="del" data-i="\${i}" type="button">Usuń</button>
-    \`;
-    ed.appendChild(row);
-  });
-  ed.querySelectorAll('input').forEach(inp=>{
-    inp.addEventListener('input', ()=>{
-      const i = +inp.dataset.i, k = inp.dataset.k; APPS[i][k]=inp.value.trim();
-      buildTiles();
+    function applyFromStore(){
+      try{
+        const raw = localStorage.getItem(LS_KEY);
+        if(!raw){ setTiles(NETLIFY); return; }
+        const obj = JSON.parse(raw);
+        if(obj.mode==='gh' && obj.user){
+          const base = 'https://' + obj.user + '.github.io/';
+          setTiles({ a: base + 'arkon-crm/', b: base + 'pawel/' });
+          gh.value = obj.user;
+        }else{
+          setTiles(NETLIFY);
+        }
+      }catch{ setTiles(NETLIFY); }
+    }
+    document.getElementById('btnApply').addEventListener('click', ()=>{
+      const user = (gh.value||'').trim();
+      if(!user){ alert('Podaj login GitHub.'); return; }
+      localStorage.setItem(LS_KEY, JSON.stringify({mode:'gh', user:user}));
+      applyFromStore();
     });
-  });
-  ed.querySelectorAll('.del').forEach(btn=>{
-    btn.addEventListener('click',()=>{ const i=+btn.dataset.i; APPS.splice(i,1); buildEditor(); buildTiles(); });
-  });
-}
-
-function escapeHtml(s){ return (s==null?'':String(s)).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
-
-$('#btnApply').addEventListener('click',()=>{ buildTiles(); });
-$('#btnRemember').addEventListener('click',()=>{ saveUser(($('#ghUser').value||'').trim().toLowerCase()); alert('Zapisano login.'); });
-
-$('#btnAdd').addEventListener('click',()=>{ APPS.push({name:'nowa',repo:'',subpath:'',netlify:''}); buildEditor(); buildTiles(); });
-$('#btnSave').addEventListener('click',()=>{ saveApps(APPS); alert('Zapisano listę aplikacji.'); });
-$('#btnClear').addEventListener('click',()=>{ if(confirm('Wyczyścić listę?')){ APPS=[]; buildEditor(); buildTiles(); }});
-
-// Quick Netlify adapt
-$('#netlifyArkon').addEventListener('input', e=>{
-  const v=e.target.value.trim(); const a = APPS.find(x=>x.name==='arkon-crm'); if(a){ a.netlify=v; buildEditor(); buildTiles(); }
-});
-$('#netlifyPawel').addEventListener('input', e=>{
-  const v=e.target.value.trim(); const a = APPS.find(x=>x.name==='pawel'); if(a){ a.netlify=v; buildEditor(); buildTiles(); }
-});
-
-buildEditor(); buildTiles();
+    document.getElementById('btnReset').addEventListener('click', ()=>{
+      localStorage.removeItem(LS_KEY);
+      gh.value='';
+      applyFromStore();
+    });
+    applyFromStore();
+  })();
 </script>
 </body>
 </html>
