@@ -1,0 +1,13 @@
+[build]
+  publish = "."
+  functions = "netlify/functions"
+
+[functions]
+  node_bundler = "esbuild"
+  # external_node_modules nie jest potrzebne, esbuild sam zbierze @neondatabase/serverless
+
+# Opcjonalny skrót: /api/messages → /.netlify/functions/messages
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
